@@ -24,6 +24,8 @@ vim.api.nvim_set_keymap('n', '<leader>b[', require("buffer_browser").next(), {de
 vim.api.nvim_set_keymap('n', '<leader>b]', require("buffer_browser").prev(), {desc = "Previous [B]uffer []]"})
 ```
 
+Use these to navigate your buffer history in the order that you opened them.
+
 ### Splits
 
 If a split has been performed, the new split will not preserve any of the previous history.
