@@ -5,11 +5,10 @@
 ## Motivation
 
 While `:bnext` and `:bprev` allows you to browse between buffers, it is not
-very intuitive. Oftentimes I jump to definitions, a different file through
-netrw, an org file. `:bprev` would then end up in a completely different file,
-because buffers are ordered by when they are opened, not by history. `:b#`,
-<Ctrl-I>, <Ctrl-6> and <Ctrl-O> works only assuming you didn't navigate one step further
-in the documentation.
+very intuitive. Oftentimes I jump to definitions and `:bprev` would then end up
+in a completely different file, because buffers are ordered by when they are
+opened, not by history. `:b#`, <Ctrl-6> and <Ctrl-O> works only
+assuming you didn't navigate further.
 
 I wanted to be able to browse buffers in a way that is similar to how you
 browse tabs in a browser. 
