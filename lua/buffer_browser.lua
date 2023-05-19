@@ -1,8 +1,6 @@
 --[[
 BUFFER BROWSER
 Author: Marc Coquand
-
-The comments below the code can be used to test the functions. Run them in `lua %` or with a code runner, like sniprun.
 ]]
 local api = vim.api
 
@@ -53,9 +51,6 @@ local function StateGoBack(state)
 	state.current = table.remove(state.previous, 1)
 	return state
 end
--- local state = { current = 1, previous = { 2, 3 }, future = { 4, 5 } }
--- print(StateGoBack(StateGoBack(StateGoBack(state)))['current'])
--- > 3
 
 local function StateGoForward(state)
 	-- Go forward in the state by setting current to the first element of future, and appending the current to the previous
@@ -70,8 +65,6 @@ local function StateGoForward(state)
 
 	return state
 end
--- local state = { current = 1, previous = { 2, 3 }, future = { 4, 5 } }
--- print(StateGoForward(StateGoForward(StateGoForward(state)))['current'])
 
 local function StateDelete(state, bufNr)
 	-- Delete bufNr from state.previous
@@ -107,9 +100,6 @@ local function StateDelete(state, bufNr)
 	end
 	return state
 end
--- local state = { current = 1, previous = { 2, 3 }, future = { 4, 5 } }
--- print(StateDelete(state, 1)['current'])
--- -- > 2
 
 local function stateIsEmpty(state)
 	return (state.current == nil and state.previous == nil and state.future == nil)
