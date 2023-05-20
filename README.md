@@ -36,7 +36,7 @@ Install through any of your favorite plugin managers.
 
 ### [lazy](https://www.lazyvim.org). 
 
-Add the following line to your config
+Add the following line in your `require('lazy').setup` call
 
 ```lua 
 {
@@ -44,12 +44,11 @@ Add the following line to your config
 }
 ```
 
-Then run somewhere in your init.lua.
+Then run somewhere in your init.lua run the setup:
 
 ```lua
 require('buffer_browser').setup()
 ```
-
 
 ### Configuration 
 
