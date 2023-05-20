@@ -36,7 +36,7 @@ Install through any of your favorite plugin managers.
 
 ### [lazy](https://www.lazyvim.org). 
 
-Make sure to run the setup function. For example with lazy:
+Add the following line to your config
 
 ```lua 
 {
@@ -44,7 +44,7 @@ Make sure to run the setup function. For example with lazy:
 }
 ```
 
-Then run 
+Then run somewhere in your init.lua.
 
 ```lua
 require('buffer_browser').setup()
@@ -64,9 +64,15 @@ require('buffer-browser').setup({
 
 This can be used to filter out buffers you do not want in the history.
 
-To immediately close netrw after you have opened a file, I recommend setting 
-` g:netrw_fastbrowse = 0`, this will remove the netrw buffer and wipe it from
-the browser history.
+#### Removing Netrw buffers
+
+By default, BufferBrowser will remember Netrw buffers. To immediately close
+netrw after you have opened a file, you can add to init.lua
+
+` g:netrw_fastbrowse =0` 
+
+This will remove the netrw buffer and wipe it from the browser history when
+you open a new file.
 
 ## Credits 
 

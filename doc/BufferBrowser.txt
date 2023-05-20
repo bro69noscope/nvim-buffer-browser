@@ -8,33 +8,25 @@ You can easily map these to whatever you want. Here is an example `init.lua`:
   vim.api.nvim_set_keymap('n', '<leader>b[', require("buffer_browser").next(), {desc = "Next [B]uffer [[]"})
   vim.api.nvim_set_keymap('n', '<leader>b]', require("buffer_browser").prev(), {desc = "Previous [B]uffer []]"})
 
-INSTALLATION
 
-Install through any of your favorite plugin managers. 
-
-### [lazy](https://www.lazyvim.org). 
-Make sure to run the setup function. For example with lazy:
-
-  {
-    'https://git.sr.ht/~marcc/BufferBrowser',
-    setup = function()
-        require('buffer_browser').setup()
-    end
-  }
-  
-  
 CONFIGURATION 
 
-You can configure the filetype_filters by passing a table to the setup function. For example with default config:
+You can configure the `filetype_filters` by passing a table to the `setup`
+function. This is the default config:
 
   require('buffer-browser').setup({
-      -- '' + 'netrw' is used to filter out netrw.
       filetype_filters = {'gitcommit', 'TelescopePrompt'}
   })
 
 This can be used to filter out buffers you do not want in the history.
 
-To immediately close netrw after you have opened a file, I recommend setting 
-` g:netrw_fastbrowse = 0`, this will remove the netrw buffer and wipe it from
-the browser history.
+REMOVING NETRW BUFFERS
+
+By default, BufferBrowser will remember Netrw buffers. To immediately close
+netrw after you have opened a file, you can add to init.lua the following:
+
+  vim.g.netrw_fastbrowse =0
+
+This will remove the netrw buffer and wipe it from the browser history when
+you open a new file.
 
