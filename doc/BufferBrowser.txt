@@ -29,17 +29,12 @@ You can configure the filetype_filters by passing a table to the setup function.
 
   require('buffer-browser').setup({
       -- '' + 'netrw' is used to filter out netrw.
-      filetype_filters = {'', 'netrw', 'gitcommit', 'TelescopePrompt'}
+      filetype_filters = {'gitcommit', 'TelescopePrompt'}
   })
 
-This can be used to filter out buffers you do not want in the history. If your
-current buffer ends with, for example netrw, it will be filtered out and not
-available in the history
+This can be used to filter out buffers you do not want in the history.
 
-LIMITATIONS
-
-To filter out netrw, we need to also filter out '', as the filetype
-occassionally gets set to that by netrw (not sure why...). This means files
-without filetype are filtered out.
-
+To immediately close netrw after you have opened a file, I recommend setting 
+` g:netrw_fastbrowse = 0`, this will remove the netrw buffer and wipe it from
+the browser history.
 

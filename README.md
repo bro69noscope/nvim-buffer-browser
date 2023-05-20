@@ -58,22 +58,19 @@ function. This is the default config:
 
 ```lua
 require('buffer-browser').setup({
-    -- '' + 'netrw' is used to filter out netrw.
-    filetype_filters = {'', 'netrw', 'gitcommit', 'TelescopePrompt'}
+    filetype_filters = {'gitcommit', 'TelescopePrompt'}
 })
 ```
 
 This can be used to filter out buffers you do not want in the history.
 
-#### Limitation
-
-To filter out netrw, we need to also filter out `''`, as the filetype
-occassionally gets set to that by netrw (not sure why...). This means files
-without filetype are filtered out.
+To immediately close netrw after you have opened a file, I recommend setting 
+` g:netrw_fastbrowse = 0`, this will remove the netrw buffer and wipe it from
+the browser history.
 
 ## Credits 
 
 The plugin is mostly a copy of
 [ton/vim-bufsurf](https://github.com/ton/vim-bufsurf), but rewritten in Lua and
-adds the ability to filter unwanted filetypes to get rid of netrw buffers. 
+adds the ability to filter unwanted filetypes.
 

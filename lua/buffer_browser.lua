@@ -232,7 +232,7 @@ end
 local function setup(opts)
 	if (opts == nil) then
 		local default = {
-			'', 'netrw', 'gitcommit', 'TelescopePrompt'
+			'gitcommit', 'TelescopePrompt'
 		}
 		vim.g.buffer_browser_filters = default
 	else
