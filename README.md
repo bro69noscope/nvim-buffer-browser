@@ -59,7 +59,7 @@ function. This is the default config:
 ```lua
 require('buffer-browser').setup({
     -- '' + 'netrw' is used to filter out netrw.
-    filetype_filters = ['', 'netrw', 'gitcommit', 'TelescopePrompt']
+    filetype_filters = {'', 'netrw', 'gitcommit', 'TelescopePrompt'}
 })
 ```
 

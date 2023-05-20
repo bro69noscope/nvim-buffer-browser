@@ -29,7 +29,7 @@ You can configure the filetype_filters by passing a table to the setup function.
 
   require('buffer-browser').setup({
       -- '' + 'netrw' is used to filter out netrw.
-      filetype_filters = ['', 'netrw', 'gitcommit', 'TelescopePrompt']
+      filetype_filters = {'', 'netrw', 'gitcommit', 'TelescopePrompt'}
   })
 
 This can be used to filter out buffers you do not want in the history. If your
