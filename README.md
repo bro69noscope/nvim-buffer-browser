@@ -68,7 +68,7 @@ This can be used to filter out buffers you do not want in the history.
 By default, BufferBrowser will remember Netrw buffers. To immediately close
 netrw after you have opened a file, you can add to init.lua
 
-` g:netrw_fastbrowse =0` 
+`vim.g.netrw_fastbrowse=0` 
 
 This will remove the netrw buffer and wipe it from the browser history when
 you open a new file.
