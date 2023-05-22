@@ -22,7 +22,7 @@ local function matchesFilter(filters, name)
 end
 
 
-local function stateAppend(bufNr, stateFiletype, state, filters)
+local function StateAppend(bufNr, stateFiletype, state, filters)
 	if (state.current == bufNr) then
 		return state
 	end
@@ -40,7 +40,7 @@ local function stateAppend(bufNr, stateFiletype, state, filters)
 	end
 end
 
-local function stateGoBack(state)
+local function StateGoBack(state)
 	-- Go back in the state by setting current to the first element of previous, and appending the current to the future
 	-- Check if past is empty, if so return state as is
 	if #state.previous == 0 then
@@ -52,7 +52,7 @@ local function stateGoBack(state)
 	return state
 end
 
-local function stateGoForward(state)
+local function StateGoForward(state)
 	-- Go forward in the state by setting current to the first element of future, and appending the current to the previous
 
 	-- Check if future is empty, if so return state as is
@@ -136,8 +136,8 @@ local function getBufNr()
 end
 
 local function getFiletype(bufnr)
-	if (bufnr == nil and vim.bo[bufnr] == nil) then
-		return nil
+	if (bufnr == nil) then
+		return ''
 	end
 	return vim.bo[bufnr].filetype
 end
@@ -153,7 +153,7 @@ function BufferBrowserBufferEnter(args)
 	else
 		if (state.current ~= bufNr) then
 			local stateFiletype = getFiletype(state.current)
-			stateAppend(bufNr, stateFiletype, state, filters)
+			StateAppend(bufNr, stateFiletype, state, filters)
 			setState(state)
 		end
 	end
@@ -200,7 +200,7 @@ local function next()
 	if stateIsEmpty(state) then
 		initState(bufnr)
 	else
-		stateGoForward(state)
+		StateGoForward(state)
 		setState(state)
 	end
 	api.nvim_command('buffer ' .. state.current)
@@ -213,7 +213,7 @@ local function prev()
 	if stateIsEmpty(state) then
 		initState(bufnr)
 	else
-		stateGoBack(state)
+		StateGoBack(state)
 		setState(state)
 	end
 	api.nvim_command('buffer ' .. state.current)
