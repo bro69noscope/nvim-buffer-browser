@@ -136,6 +136,7 @@ local function getBufNr()
 end
 
 local function getFiletype(bufnr)
+	-- TODO: Implement check for Fugitive diff buffers
 	if (bufnr == nil) then
 		return ''
 	end
