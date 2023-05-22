@@ -136,7 +136,7 @@ local function getBufNr()
 end
 
 local function getFiletype(bufnr)
-	if (bufnr == nil and api.nvim_buf_is_valid(bufnr)) then
+	if (bufnr == nil and vim.bo[bufnr] == nil) then
 		return nil
 	end
 	return vim.bo[bufnr].filetype
