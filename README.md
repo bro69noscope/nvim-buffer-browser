@@ -30,7 +30,7 @@ Use these to navigate your buffer history in the order that you opened them.
 
 If a split has been performed, the new split will not preserve any of the previous history.
 
-## Insallation
+## Installation
 
 Install through any of your favorite plugin managers. 
 
