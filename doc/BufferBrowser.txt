@@ -5,8 +5,8 @@ This plugin implements two functions:
   require('buffer-browser').prev()
 
 You can easily map these to whatever you want. Here is an example `init.lua`:
-  vim.api.nvim_set_keymap('n', '<leader>b[', require("buffer_browser").next(), {desc = "Next [B]uffer [[]"})
-  vim.api.nvim_set_keymap('n', '<leader>b]', require("buffer_browser").prev(), {desc = "Previous [B]uffer []]"})
+  vim.keymap.set('n', '<leader>b[', require("buffer_browser").next, {desc = "Next [B]uffer [[]"})
+  vim.keymap.set('n', '<leader>b]', require("buffer_browser").prev, {desc = "Previous [B]uffer []]"})
 
 
 CONFIGURATION 

@@ -21,8 +21,8 @@ This plugin implements two functions: `require('buffer-browser').next()` and
 You can easily map these to whatever you want. Here is an example `init.lua`:
 
 ```lua
-vim.api.nvim_set_keymap('n', '<leader>b[', require("buffer_browser").next, {desc = "Next [B]uffer [[]"})
-vim.api.nvim_set_keymap('n', '<leader>b]', require("buffer_browser").prev, {desc = "Previous [B]uffer []]"})
+vim.keymap.set('n', '<leader>b[', require("buffer_browser").next, {desc = "Next [B]uffer [[]"})
+vim.keymap.set('n', '<leader>b]', require("buffer_browser").prev, {desc = "Previous [B]uffer []]"})
 ```
 
 Use these to navigate your buffer history in the order that you opened them.
