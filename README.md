@@ -1,5 +1,7 @@
 # NVIM Buffer Browse
 
+this is a fork of https://git.sr.ht/~marcc/BufferBrowser
+
 `:b#` on steroids. Browse your buffers like you browse history in a browser.
 
 ## Motivation
