@@ -21,14 +21,13 @@ local function matchesFilter(filters, name)
 	return false
 end
 
-
 local function StateAppend(bufNr, stateFiletype, state, filters)
-	if (state.current == bufNr) then
+	if state.current == bufNr then
 		return state
 	end
 
 	-- if filters matches the filetype of the buffer we change from, don't add it to history
-	if (stateFiletype ~= nil and matchesFilter(filters, stateFiletype)) then
+	if stateFiletype ~= nil and matchesFilter(filters, stateFiletype) then
 		state.current = bufNr
 		return state
 	else
@@ -105,7 +104,6 @@ local function stateIsEmpty(state)
 	return (state.current == nil and state.previous == nil and state.future == nil)
 end
 
-
 -- [[ EFFECTS ]]
 local function setState(state)
 	vim.w.buffer_browser_previous = state.previous
@@ -137,8 +135,11 @@ end
 
 local function getFiletype(bufnr)
 	-- TODO: Implement check for Fugitive diff buffers
-	if (bufnr == nil) then
-		return ''
+	if bufnr == nil then
+		return ""
+	end
+	if not api.nvim_buf_is_valid(bufnr) then
+		return ""
 	end
 	return vim.bo[bufnr].filetype
 end
@@ -152,7 +153,7 @@ function BufferBrowserBufferEnter(args)
 	if stateIsEmpty(state) then
 		initState(bufNr)
 	else
-		if (state.current ~= bufNr) then
+		if state.current ~= bufNr then
 			local stateFiletype = getFiletype(state.current)
 			StateAppend(bufNr, stateFiletype, state, filters)
 			setState(state)
@@ -162,36 +163,35 @@ end
 
 function BufferBrowserBufferWipeOut(args)
 	local buf = args.buf
-	local state = getState()
-	if not stateIsEmpty(state) then
-		StateDelete(state, buf)
-		setState(state)
+	for _, win in ipairs(api.nvim_list_wins()) do
+		local ok, state = pcall(vim.api.nvim_win_call, win, getState)
+		if ok and not stateIsEmpty(state) then
+			StateDelete(state, buf)
+			vim.api.nvim_win_call(win, function()
+				setState(state)
+			end)
+		end
 	end
 end
 
-local BufferBrowserGroup = api.nvim_create_augroup('BufferBrowser', { clear = true })
+local BufferBrowserGroup = api.nvim_create_augroup("BufferBrowser", { clear = true })
 
-api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' },
-	{
-		group = BufferBrowserGroup,
-		pattern = '*',
-		callback = function(args)
-			BufferBrowserBufferEnter(args)
-		end
-	}
-)
+api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+	group = BufferBrowserGroup,
+	pattern = "*",
+	callback = function(args)
+		BufferBrowserBufferEnter(args)
+	end,
+})
 
 -- BufWipeout is called before deletion
-api.nvim_create_autocmd('BufWipeout',
-	{
-		group = BufferBrowserGroup,
-		pattern = '*',
-		callback = function(args)
-			BufferBrowserBufferWipeOut(args)
-		end
-	}
-)
-
+api.nvim_create_autocmd("BufWipeout", {
+	group = BufferBrowserGroup,
+	pattern = "*",
+	callback = function(args)
+		BufferBrowserBufferWipeOut(args)
+	end,
+})
 
 --[[ COMMANDS ]]
 local function next()
@@ -204,7 +204,7 @@ local function next()
 		StateGoForward(state)
 		setState(state)
 	end
-	api.nvim_command('buffer ' .. state.current)
+	api.nvim_command("buffer " .. state.current)
 end
 
 local function prev()
@@ -217,23 +217,25 @@ local function prev()
 		StateGoBack(state)
 		setState(state)
 	end
-	api.nvim_command('buffer ' .. state.current)
+	if state.current and api.nvim_buf_is_valid(state.current) then
+		api.nvim_command("buffer " .. state.current)
+	end
 end
 
 --[[ DEBUG ]]
 local function printBrowserHistory()
 	local state = getState()
-	print('Browser State Previous: ' .. vim.inspect(state.previous))
-	print('Browser State Current: ' .. vim.inspect(state.current))
-	print('Browser State Future: ' .. vim.inspect(state.future))
+	print("Browser State Previous: " .. vim.inspect(state.previous))
+	print("Browser State Current: " .. vim.inspect(state.current))
+	print("Browser State Future: " .. vim.inspect(state.future))
 end
-
 
 --[[ SETUP ]]
 local function setup(opts)
-	if (opts == nil) then
+	if opts == nil then
 		local default = {
-			'gitcommit', 'TelescopePrompt'
+			"gitcommit",
+			"TelescopePrompt",
 		}
 		vim.g.buffer_browser_filters = default
 	else
@@ -246,5 +248,5 @@ return {
 	next = next,
 	prev = prev,
 	printBrowserHistory = printBrowserHistory,
-	setup = setup
+	setup = setup,
 }
